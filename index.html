@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mussar-curriculum-tracker</title>
+<title>Mussar Curriculum Tracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@300..700&display=swap" rel="stylesheet">
@@ -277,8 +277,8 @@ a:hover { color: var(--color-primary-hover); }
         <div class="trait-hebrew">סַבְלָנוּת</div>
         <p class="trait-definition">Bearing the burden of uncomfortable, frustrating, or delayed situations without reacting with anger or resentment. It is the conscious choice to take a deep breath, remain present, and accept what you cannot control. The root of <em>savlanut</em> means both "to suffer" and "to carry a load" — impatience is the heavy bag; patience is learning to carry it with grace.</p>
         <div class="trait-dates">
-          <div class="trait-date-item"><strong>Week 1</strong>Jun 11–17</div>
-          <div class="trait-date-item"><strong>Week 2</strong>Jun 18–24</div>
+          <div class="trait-date-item"><strong>Week 1</strong>May 29–Jun 4</div>
+          <div class="trait-date-item"><strong>Week 2</strong>Jun 5–11</div>
           <div class="trait-date-item"><strong>Class</strong>Thu, Jun 11 @ 3pm</div>
         </div>
         <div class="trait-progress">
@@ -311,17 +311,7 @@ a:hover { color: var(--color-primary-hover); }
 
       <!-- Habit Tracker -->
       <h2 class="section-title">Daily Small Steps — Week 1</h2>
-      <div style="display:flex;justify-content:flex-end;margin-bottom:var(--space-2)">
-        <div class="day-labels">
-          <div class="day-label-item">S</div>
-          <div class="day-label-item">M</div>
-          <div class="day-label-item">T</div>
-          <div class="day-label-item">W</div>
-          <div class="day-label-item">T</div>
-          <div class="day-label-item">F</div>
-          <div class="day-label-item">S</div>
-        </div>
-      </div>
+      <div style="display:flex;justify-content:flex-end;margin-bottom:var(--space-2)"><div class="day-labels" style="gap:4px;flex-wrap:wrap;max-width:448px"><div class="day-label-item" style="width:28px">1</div><div class="day-label-item" style="width:28px">2</div><div class="day-label-item" style="width:28px">3</div><div class="day-label-item" style="width:28px">4</div><div class="day-label-item" style="width:28px">5</div><div class="day-label-item" style="width:28px">6</div><div class="day-label-item" style="width:28px">7</div><div class="day-label-item" style="width:28px">8</div><div class="day-label-item" style="width:28px">9</div><div class="day-label-item" style="width:28px">10</div><div class="day-label-item" style="width:28px">11</div><div class="day-label-item" style="width:28px">12</div><div class="day-label-item" style="width:28px">13</div><div class="day-label-item" style="width:28px">14</div></div></div>
       <div class="habit-grid" id="habitGrid">
         <!-- rendered by JS -->
       </div>
@@ -353,6 +343,28 @@ a:hover { color: var(--color-primary-hover); }
 
 <script>
 // ── Data ──
+const START_DATE = new Date('2026-05-29T00:00:00');
+const STORAGE_KEY = 'mussar_tracker_v2';
+const WEEK1_PROMPTS = [
+  { day: "Day 1 — May 29", q: "Where in your life are you carrying the heaviest load of impatience right now?", torah: "\"The patient in spirit is better than the proud in spirit.\" — Kohelet 7:8" },
+  { day: "Day 2 — May 30", q: "Think of a moment you lashed out in impatience. What was really going on beneath the surface — whose need was driving it?", torah: "\"Whoever is slow to anger has great understanding, but one who has a hasty temper exalts folly.\" — Proverbs 14:29" },
+  { day: "Day 3 — May 31", q: "How does savlanut differ from passive resignation? What does it mean to carry a burden with dignity rather than to simply give up?", torah: "\"Be still before the Lord and wait patiently for Him.\" — Psalm 37:7" },
+  { day: "Day 4 — Jun 1", q: "The Mishnah says: 'Who is mighty? One who conquers their own impulse.' Where did you conquer your impulse toward impatience today?", torah: "\"Who is mighty? One who subdues their evil inclination.\" — Pirkei Avot 4:1" },
+  { day: "Day 5 — Jun 2", q: "When is your patience tested most by other people? Can you locate that impatience as a feeling that 'this is about me'?", torah: "\"A patient man calms strife.\" — Proverbs 15:18" },
+  { day: "Day 6 — Jun 3", q: "Reflect on a time when patience opened a door that anger would have slammed shut. What did that patience cost you? What did it give you?", torah: "\"Better the end of a thing than its beginning; better patience than pride.\" — Kohelet 7:8" },
+  { day: "Day 7 — Jun 4", q: "End of Week 1: How has your 'patience muscle' changed? Where did you notice improvement — even briefly?", torah: "\"The one slow to anger is better than the mighty.\" — Proverbs 16:32" },
+];
+const WEEK2_PROMPTS = [
+  { day: "Day 8 — Jun 5", q: "What recurring situation is still testing your patience? What happens if you stop trying to control it?", torah: "\"Do not be quick in your spirit to become angry.\" — Kohelet 7:9" },
+  { day: "Day 9 — Jun 6", q: "Where did you bear discomfort today without complaint? How did that choice affect the atmosphere around you?", torah: "\"A patient person calms strife.\" — Proverbs 15:18" },
+  { day: "Day 10 — Jun 7", q: "When delay appears, what story do you tell yourself? Try rewriting that story with humility and spaciousness.", torah: "\"Wait for the Lord; be strong, and let your heart be steadfast.\" — Psalm 27:14" },
+  { day: "Day 11 — Jun 8", q: "Notice the physical sensations of impatience today. Where did you feel them in your body, and what happened when you breathed through them?", torah: "\"From my narrow place I called to God; God answered me with expansiveness.\" — Psalm 118:5" },
+  { day: "Day 12 — Jun 9", q: "Who in your life most needs your patience right now? What would it look like to give them room without resentment?", torah: "\"Love your neighbor as yourself.\" — Leviticus 19:18" },
+  { day: "Day 13 — Jun 10", q: "What burden feels heavy today? Can you carry it consciously rather than letting it carry you?", torah: "\"Cast your burden upon the Lord, and He will sustain you.\" — Psalm 55:23" },
+  { day: "Day 14 — Jun 11", q: "End of Week 2: What have you learned about savlanut? What small practice do you want to carry into the next middah?", torah: "\"Teach us to number our days, that we may gain a heart of wisdom.\" — Psalm 90:12" },
+];
+const PROMPTS = [...WEEK1_PROMPTS, ...WEEK2_PROMPTS];
+
 const HABITS = [
   { id: "mantra", name: "Morning Mantra", desc: "Recite the patience mantra upon waking — before checking your phone." },
   { id: "situational", name: "Situational Test", desc: "Identify your hardest patience moment. Sit in it 5 minutes. Breathe. Don't react." },
@@ -361,18 +373,8 @@ const HABITS = [
   { id: "reflection", name: "Evening Reflection", desc: "Where did impatience arise today? Was the situation really about you?" },
 ];
 
-const PROMPTS = [
-  { day: "Day 1 — Jun 11", q: "Where in your life are you carrying the heaviest load of impatience right now?", torah: ""The patient in spirit is better than the proud in spirit." — Kohelet 7:8" },
-  { day: "Day 2 — Jun 12", q: "Think of a moment you lashed out in impatience. What was really going on beneath the surface — whose need was driving it?", torah: ""Whoever is slow to anger has great understanding, but one who has a hasty temper exalts folly." — Proverbs 14:29" },
-  { day: "Day 3 — Jun 13", q: "How does savlanut differ from passive resignation? What does it mean to carry a burden with dignity rather than to simply give up?", torah: ""Be still before the Lord and wait patiently for Him." — Psalm 37:7" },
-  { day: "Day 4 — Jun 14", q: "The Mishnah says: 'Who is mighty? One who conquers their own impulse.' Where did you conquer your impulse toward impatience today?", torah: ""Who is mighty? One who subdues their evil inclination." — Pirkei Avot 4:1" },
-  { day: "Day 5 — Jun 15", q: "When is your patience tested most by other people? Can you locate that impatience as a feeling that 'this is about me'?", torah: ""Bear one another's burdens, and so fulfill the law." — Galatians 6:2 (echoing Torah's neighbor-love)" },
-  { day: "Day 6 — Jun 16", q: "Reflect on a time when patience opened a door that anger would have slammed shut. What did that patience cost you? What did it give you?", torah: ""The beginning of wisdom is: acquire wisdom; and with all your acquisitions, acquire understanding." — Proverbs 4:7" },
-  { day: "Day 7 — Jun 17", q: "End of Week 1: How has your 'patience muscle' changed? Where did you notice improvement — even briefly?", torah: ""This too shall pass" — attributed to King Solomon. All things carry within them the seed of their own ending." },
-];
-
 const CURRICULUM = [
-  { num: 1, trait: "Savlanut", hebrew: "סַבְלָנוּת", english: "Patience", dates: "Jun 11 – Jun 24, 2026", status: "current" },
+  { num: 1, trait: "Savlanut", hebrew: "סַבְלָנוּת", english: "Patience", dates: "May 29 – Jun 11, 2026", status: "current" },
   { num: 2, trait: "Anavah", hebrew: "עֲנָוָה", english: "Humility", dates: "Jun 25 – Jul 8, 2026", status: "upcoming" },
   { num: 3, trait: "Seder", hebrew: "סֵדֶר", english: "Order", dates: "Jul 9 – Jul 22, 2026", status: "upcoming" },
   { num: 4, trait: "Bitachon", hebrew: "בִּטָּחוֹן", english: "Trust / Equanimity", dates: "Jul 23 – Aug 5, 2026", status: "upcoming" },
@@ -392,14 +394,48 @@ const CURRICULUM = [
   { num: 18, trait: "Emunah", hebrew: "אֱמוּנָה", english: "Faith", dates: "Feb 4 – Feb 17, 2027", status: "upcoming" },
 ];
 
-// ── State (in-memory, no localStorage) ──
-let checks = {}; // { habitId_day: true }
-let journalEntries = {}; // { promptIdx: text }
+let appState = loadState();
 
-// ── Render Habits ──
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (e) {}
+  return { checks: {}, journalEntries: {} };
+}
+
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+  } catch (e) {}
+}
+
+function getTodayIndex() {
+  const today = new Date();
+  const start = new Date(START_DATE);
+  start.setHours(0,0,0,0);
+  today.setHours(0,0,0,0);
+  const diff = Math.floor((today - start) / (1000 * 60 * 60 * 24));
+  if (diff < 0) return 0;
+  if (diff > 13) return 13;
+  return diff;
+}
+
+function getCurrentWeek() {
+  return getTodayIndex() < 7 ? 1 : 2;
+}
+
+function updateDynamicText() {
+  const week = getCurrentWeek();
+  const title = document.querySelector('.section-title');
+  if (title) title.textContent = `Daily Small Steps — Week ${week}`;
+  const header = document.querySelector('#view-today .page-header p');
+  if (header) header.textContent = `Working the middah of Savlanut — Patience. Today is Day ${getTodayIndex()+1} of 14.`;
+}
+
 function renderHabits() {
   const grid = document.getElementById('habitGrid');
-  const days = ['S','M','T','W','T','F','S'];
+  const todayIndex = getTodayIndex();
   grid.innerHTML = HABITS.map(h => `
     <div class="habit-card">
       <div>
@@ -408,12 +444,12 @@ function renderHabits() {
       </div>
       <div>
         <div class="habit-days">
-          ${days.map((d,i) => {
+          ${Array.from({length:14}).map((_,i) => {
             const key = h.id+'_'+i;
-            const checked = checks[key];
-            const isToday = i === new Date().getDay();
-            return `<button class="day-dot ${checked?'checked':''} ${isToday?'today':''}" 
-              onclick="toggleCheck('${key}')" aria-label="${d}">${checked?'✓':''}</button>`;
+            const checked = appState.checks[key];
+            const isToday = i === todayIndex;
+            return `<button class="day-dot ${checked?'checked':''} ${isToday?'today':''}" title="Day ${i+1}"
+              onclick="toggleCheck('${key}')" aria-label="Day ${i+1}">${checked?'✓':''}</button>`;
           }).join('')}
         </div>
       </div>
@@ -423,46 +459,55 @@ function renderHabits() {
 }
 
 function toggleCheck(key) {
-  checks[key] = !checks[key];
+  appState.checks[key] = !appState.checks[key];
+  saveState();
   renderHabits();
 }
 
 function updateProgress() {
-  const total = HABITS.length * 7;
-  const done = Object.values(checks).filter(Boolean).length;
+  const total = HABITS.length * 14;
+  const done = Object.values(appState.checks).filter(Boolean).length;
   const pct = Math.round((done/total)*100);
   document.getElementById('progressPct').textContent = pct+'%';
   document.getElementById('traitBarFill').style.width = pct+'%';
-  document.querySelector('.progress-bar-fill').style.width = (done / total * 100 * (1/18)) + '%';
 }
 
-// ── Render Prompts ──
 function renderPrompts() {
   const container = document.getElementById('promptsContainer');
+  const todayIndex = getTodayIndex();
   container.innerHTML = PROMPTS.map((p, i) => `
-    <div class="prompt-card">
-      <div class="prompt-date">${p.day}</div>
+    <div class="prompt-card" style="${i===todayIndex ? 'border-color: var(--color-primary); box-shadow: 0 0 0 2px color-mix(in oklch, var(--color-primary) 18%, transparent), var(--shadow-sm);' : ''}">
+      <div class="prompt-date">${p.day} ${i===todayIndex ? '• Today' : ''}</div>
       <div class="prompt-q">${p.q}</div>
       <div class="prompt-torah">${p.torah}</div>
       <textarea class="prompt-textarea" placeholder="Write your reflection here..." 
-        onchange="saveEntry(${i}, this.value)">${journalEntries[i]||''}</textarea>
+        onchange="saveEntry(${i}, this.value)">${appState.journalEntries[i]||''}</textarea>
       <button class="save-btn" onclick="savePrompt(${i})">Save Reflection</button>
     </div>
   `).join('');
-  const filled = Object.keys(journalEntries).filter(k => journalEntries[k]).length;
-  document.getElementById('journalBadge').textContent = PROMPTS.length - filled || '';
+  const remaining = PROMPTS.length - Object.keys(appState.journalEntries).filter(k => (appState.journalEntries[k]||'').trim()).length;
+  document.getElementById('journalBadge').textContent = remaining > 0 ? remaining : '✓';
+  setTimeout(() => {
+    const todayCard = container.children[todayIndex];
+    if (todayCard) todayCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
 }
 
-function saveEntry(idx, val) { journalEntries[idx] = val; }
+function saveEntry(idx, val) {
+  appState.journalEntries[idx] = val;
+  saveState();
+}
+
 function savePrompt(idx) {
   const ta = document.querySelectorAll('.prompt-textarea')[idx];
-  journalEntries[idx] = ta.value;
+  appState.journalEntries[idx] = ta.value;
+  saveState();
   const f = document.getElementById('savedFlash');
   f.classList.add('show');
   setTimeout(() => f.classList.remove('show'), 2000);
+  renderPrompts();
 }
 
-// ── Render Curriculum ──
 function renderCurriculum() {
   const grid = document.getElementById('curriculumGrid');
   grid.innerHTML = CURRICULUM.map(c => `
@@ -478,7 +523,6 @@ function renderCurriculum() {
   `).join('');
 }
 
-// ── Navigation ──
 function showView(name) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -497,21 +541,22 @@ function closeSidebar() {
   document.getElementById('overlay').classList.remove('show');
 }
 
-// ── Theme ──
 (function(){
   const t = document.querySelector('[data-theme-toggle]');
   const r = document.documentElement;
-  let d = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+  let d = localStorage.getItem('mussar_theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');
   r.setAttribute('data-theme', d);
   t && t.addEventListener('click', () => {
     d = d === 'dark' ? 'light' : 'dark';
     r.setAttribute('data-theme', d);
+    localStorage.setItem('mussar_theme', d);
   });
 })();
-
 // ── Init ──
+updateDynamicText();
 renderHabits();
 renderCurriculum();
+renderPrompts();
 </script>
 </body>
 </html>
